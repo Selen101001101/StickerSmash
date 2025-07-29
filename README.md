@@ -394,5 +394,90 @@ Expo CLI automatically configures it in ```tsconfig.json```.
 
 ## Create buttons using Pressable
 
+### components/Button.tsx
+```tsx
+import { StyleSheet, View, Pressable, Text } from 'react-native';
+
+type Props = {
+  label: string;
+};
+
+export default function Button({ label }: Props) {
+  return (
+    <View style={styles.buttonContainer}>
+      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+        <Text style={styles.buttonLabel}>{label}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    width: 320,
+    height: 68,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 3,
+  },
+  button: {
+    borderRadius: 10,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  buttonLabel: {
+    color: '#fff',
+    fontSize: 16,
+  },
+});
+
+```
+
+### app/(tabs)/index.tsx
+
+```tsx
+import { View, StyleSheet } from 'react-native';
+
+import Button from '@/components/Button'; 
+import ImageViewer from '@/components/ImageViewer';
+
+const PlaceholderImage = require("@/assets/images/background-image.png");
+
+export default function Index() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <ImageViewer imgSource={PlaceholderImage} />
+      </View>
+      <View style={styles.footerContainer}>
+        <Button label="Choose a photo" />
+        <Button label="Use this photo" />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    flex: 1,
+    paddingTop: 28,
+  },
+  footerContainer: {
+    flex: 1 / 3,
+    alignItems: 'center',
+  },
+});
+
+```
+
 
 ##
