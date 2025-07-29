@@ -207,3 +207,52 @@ Add a Link component to navigate to the / route, which is our fallback route.
 - Inside the app directory, add a ```(tabs)``` subdirectory. This special directory is used to group routes together and display them in a bottom tab bar.
 - Create a ```(tabs)/_layout.tsx``` file inside the directory. It will be used to define the tab layout, which is separate from Root layout.
 - Move the existing ```index.tsx``` and ```about.tsx``` files inside the ```(tabs)``` directory.
+
+## Update bottom tab navigator appearance
+
+- Import ```Ionicons``` icons set from ```@expo/vector-icons``` — a library that includes popular icon sets.
+- Add the ```tabBarIcon``` to both the ```index``` and about routes. This function takes ```focused``` and ```color``` as params and renders the icon component. From the icon set, we can provide custom icon names.
+- Add ```screenOptions.tabBarActiveTintColor``` to the ```Tabs``` component and set its value to ```#ffd33d```. This will change the color of the tab bar icon and label when active.
+
+### app/(tabs)/_layout.tsx
+```tsx
+import { Tabs } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+export default function TabLayout() {
+  return (
+    <Tabs
+      screenOptions={{
+         tabBarActiveTintColor: '#ffd33d',
+         headerStyle: {
+            backgroundColor: '#25292e',
+         },
+         headerShadowVisible: false,
+         headerTintColor: '#fff',
+         tabBarStyle: {
+            backgroundColor: '#25292e',
+         },
+      }}
+      >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="about"
+        options={{
+          title: 'About',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24}/>
+          ),
+        }}
+      />
+    </Tabs>
+  );
+}
+```
