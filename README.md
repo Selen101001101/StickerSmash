@@ -48,3 +48,61 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+
+# TUTORIAL
+
+## Initialize a new Expo app
+
+```bash
+npx create-expo-app@latest StickerSmash
+```
+
+## Run reset-project script
+
+[reset-project] script resets the app directory structure in a project and copies the previous boilerplate files from the project's root directory to another sub-directory called app-example. We can delete it since it is not part of our main app's structure.
+
+```bash
+npm run reset-project
+```
+
+## Run the app on mobile and web
+
+```bash
+npx expo start
+```
+After running the app:
+
+- The development server will start, and you'll see a QR code inside the terminal window.
+- Scan that QR code to open the app on the device. On Android, use the Expo Go > Scan QR code option. On iOS, use the default camera app.
+- To run the web app, press w in the terminal. It will open the web app in the default web browser.
+
+## Edit the index screen
+
+```jsx
+import { Text, View,  StyleSheet } from 'react-native';
+
+export default function Index() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Home screen</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: '#fff',
+  },
+});
+
+```
+
+React Native uses the same color format as the web. It supports [hex] [triplets] (this is what #fff is), [rgba], [hsl], and [named] [colors], such as [red], [green], [blue], [peru], and [papayawhip]. For more information, see [Colors in React Native](https://reactnative.dev/docs/colors).
