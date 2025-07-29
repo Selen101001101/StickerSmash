@@ -51,7 +51,9 @@ Join our community of developers creating universal apps.
 
 
 
-# TUTORIAL : CREATE AN APP WITH EXPO AND REACT NATIVE
+# TUTORIAL : 
+
+# Chap 1 . CREATE AN APP WITH EXPO AND REACT NATIVE
 
 ## Initialize a new Expo app
 
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
 React Native uses the same color format as the web. It supports [hex] [triplets] (this is what #fff is), [rgba], [hsl], and [named] [colors], such as [red], [green], [blue], [peru], and [papayawhip]. For more information, see [Colors in React Native](https://reactnative.dev/docs/colors).
 
 
-# TUTORIAL : Add navigation
+# Chap 2 . Add navigation
 
 Expo Router is a file-based routing framework for React Native and web apps. It manages navigation between screens and uses the same components across multiple platforms. To get started, we need to know about the following conventions:
 
@@ -257,7 +259,7 @@ export default function TabLayout() {
 }
 ```
 
-# TUTORIEL: Build a screen
+# Chap 3 . Build a screen
 
 ## Break down the screen
 
@@ -590,3 +592,36 @@ const styles = StyleSheet.create({
 });
 
 ```
+
+# Chap 4 . Use an Image Picker
+
+React Native provides built-in components as standard building blocks, such as ```<View>```, ```<Text>```, and ```<Pressable>```. 
+We are building a feature to select an image from the device's media gallery. This isn't possible with the core components and we'll need a library to add this feature in our app.
+We'll use ```expo-image-picker```, a library from Expo SDK.
+This library provides access to the system's UI to select images and videos from the phone's library.
+
+## Install expo-image-picker
+
+```bash
+npx expo install expo-image-picker
+```
+
+Any time we install a new library in a project, we should stop the development server (```Ctrl + C```) in the terminal and run the installation command. After the installation completes, we can start the development server again by running npx expo start from the same terminal window.
+
+
+## Pick an image from the device's media library
+
+
+##
+
+
+##
+
+
+##
+
+
+##
+
+
+
