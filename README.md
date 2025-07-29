@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
 
 ```
 
-A [stack navigator]() is the foundation for navigating between different screens in an app : 
+A ```stack navigator``` is the foundation for navigating between different screens in an app : 
 - On Android, a stacked route animates on top of the current screen. 
 - On iOS, a stacked route animates from the right. 
 
@@ -196,7 +196,10 @@ const styles = StyleSheet.create({
 
 ```
 
+## Add a not-found route
 
-##
+- Create a new file named ```Not-found.tsx``` inside the app directory to add the ```NotFoundScreen component```.
+Add options prop from the Stack.Screen to display a custom screen title for this route.
+Add a Link component to navigate to the / route, which is our fallback route.
 
 ##
