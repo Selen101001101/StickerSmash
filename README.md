@@ -256,3 +256,80 @@ export default function TabLayout() {
   );
 }
 ```
+
+# TUTORIEL: Build a screen
+
+## Break down the screen
+
+![Screen essential elements](/pictures_files/screen_essentials_components.png)
+
+There are two essential elements:
+
+- There is a large image displayed at the center of the screen
+- There are two buttons in the bottom half of the screen
+
+The first button contains multiple components. The parent element provides a yellow border, and contains an icon and text components inside a row.
+
+![Parent Child Components](/pictures_files/parents_children_components.png)
+
+Now that we've broken down the UI into smaller chunks, we're ready to start coding.
+
+## Display the image
+
+We'll use ```expo-image``` library to display the image in the app. It provides a cross-platform ```<Image>``` component to load and render an image.
+To install those libraries, stop the dev server before:
+
+```bash
+npx expo install expo-image
+```
+
+
+To use the Image component in ```app/(tabs)/index.tsx``` file:
+
+- Import ```Image``` from the ```expo-image``` library.
+- Create a ```PlaceholderImage``` variable to use ```assets/images/background-image.png``` file as the source prop on the Image component.
+
+```tsx
+import { View, StyleSheet } from 'react-native';
+ import { Image } from 'expo-image'; 
+
+
+const PlaceholderImage = require('@/assets/images/background-image.png');
+
+
+export default function Index() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image source={PlaceholderImage} style={styles.image} />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    flex: 1,
+  },
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
+});
+
+```
+
+
+##
+
+
+##
+
+
+##

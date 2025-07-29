@@ -1,12 +1,13 @@
-import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
+import { StyleSheet, View } from "react-native";
+
+const PlaceholderImage = require('@/assets/images/background-image.png');
+
 
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Page d&apos;accueil</Text>
-      <Text style={styles.text}>Aller vers <Link href="/about" style={styles.button}>à propos </Link> </Text>
-      
+      <Image source={PlaceholderImage} style={styles.image} />
     </View>
   );
 }
@@ -25,5 +26,13 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     textDecorationLine: "underline",
     color: "#020072ff"
-  }
+  },
+  imageContainer: {
+    flex: 1,
+  },
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
 })
