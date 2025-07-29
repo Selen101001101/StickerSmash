@@ -3,6 +3,8 @@ import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { StyleSheet, View } from "react-native";
 import Button from "../components/Button";
+import CircleButton from "../components/CircleButton";
+import IconButton from "../components/IconButton";
 import ImageViewer from "../components/ImageViewer";
 
 const PlaceholderImage = require("@/assets/images/background-image.png");
@@ -26,6 +28,18 @@ export default function Index() {
     }
   };
 
+  const onReset = () => {
+    setShowAppOptions(false)
+  }
+
+  const onAddSticker = () => {
+    //Plus tard
+  }
+
+  const onSaveImageAsync = async () => {
+    //Plus tard
+  }
+
 
   return (
     <View style={styles.container}>
@@ -33,7 +47,13 @@ export default function Index() {
         <ImageViewer imgSource={PlaceholderImage} selectedImage={selectedPicture} />
       </View>
       {
-        showAppOptions? (<View/>) : (
+        showAppOptions? (<View style={styles.optionsContainer}>
+          <View style={styles.optionsRow}>
+            <IconButton icon="refresh" label="Reset" onPress={onReset} />
+            <CircleButton onPress={onAddSticker} />
+            <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
+          </View>
+        </View>) : (
           <View style={styles.footerContainer}>
         <Button theme="primary" label="Choisir une photo" onPress={pickImageAsync} />
         <Button label="Prendre cette photo" onPress={()=>{setShowAppOptions(true)}} />
@@ -57,5 +77,13 @@ const styles = StyleSheet.create({
   footerContainer: {
     flex: 1 / 3,
     alignItems: "center",
+  },
+  optionsContainer: {
+    position: 'absolute',
+    bottom: 80,
+  },
+  optionsRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
