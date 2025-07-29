@@ -156,6 +156,46 @@ A [stack navigator]() is the foundation for navigating between different screens
 Expo Router provides a Stack component to create a navigation stack to add new routes.
 
 ## Navigate between screens
+We'll use Expo Router's Link component to navigate from the ```/index``` route to the ```/about``` route. It is a React component that renders a ```<Text>``` with a given href prop.
+
+Import the Link component from expo-router inside ```index.tsx```.
+Add a Link component after ```<Text>``` component and pass href prop with the /about route.
+Add a style of fontSize, textDecorationLine, and color to Link component. It takes the same props as the ```<Text>``` component.
+
+```tsx
+import { Text, View, StyleSheet } from 'react-native';
+ import { Link } from 'expo-router'; 
+
+export default function Index() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Home screen</Text>
+      <Link href="/about" style={styles.button}>
+        Go to About screen
+      </Link>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: '#fff',
+  },
+  button: {
+    fontSize: 20,
+    textDecorationLine: 'underline',
+    color: '#fff',
+  },
+});
+
+```
+
 
 ##
 
