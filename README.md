@@ -801,7 +801,106 @@ The result object and the properties it contains:
 
 
 
-##
+## Use the selected image
+
+- Declare a state variable called ```selectedImage``` using the ```useState``` hook from React. We'll use this state variable to hold the URI of the selected image.
+- Update the ```pickImageAsync()``` function to save the image URI in the ```selectedImage``` state variable.
+- Pass the ```selectedImage``` as a prop to the ```ImageViewer``` component.
+
+
+### app/(tabs)/index.tsx
+```tsx
+import { View, StyleSheet } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
+import { useState } from 'react';
+
+
+import Button from '@/components/Button';
+import ImageViewer from '@/components/ImageViewer';
+
+const PlaceholderImage = require('@/assets/images/background-image.png');
+
+export default function Index() {
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    } else {
+      alert('You did not select any image.');
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <ImageViewer imgSource={PlaceholderImage} selectedImage={selectedImage} />
+      </View>
+      <View style={styles.footerContainer}>
+        <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
+        <Button label="Use this photo" />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    flex: 1,
+  },
+  footerContainer: {
+    flex: 1 / 3,
+    alignItems: 'center',
+  },
+});
+
+```
+
+Pass the ```selectedImage``` prop to the ```ImageViewer``` component to display the selected image instead of a placeholder image.
+
+- Modify the ```components/ImageViewer.tsx``` file to accept the ```selectedImage``` prop.
+- The source of the image is getting long, so let's also move it to a separate variable called ```imageSource```.
+- Pass ```imageSource``` as the value of the source prop on the ```Image``` component.
+
+### components/ImageViewer.tsx
+```tsx
+import { ImageSourcePropType, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
+
+type Props = {
+  imgSource: ImageSourcePropType;
+  selectedImage?: string;
+};
+
+export default function ImageViewer({ imgSource, selectedImage }: Props) {
+  const imageSource = selectedImage ? { uri: selectedImage } : imgSource;
+
+  return <Image source={imageSource} style={styles.image} />;
+}
+
+const styles = StyleSheet.create({
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
+});
+
+```
+
+In the above snippet, the Image component uses a conditional operator to load the image s source. The picked image is a ```uri``` string, not a local asset like the placeholder image.
 
 
 ##
