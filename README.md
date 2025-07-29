@@ -326,10 +326,73 @@ const styles = StyleSheet.create({
 ```
 
 
-##
+## Divide components into files
+
+- Create a top-level ```components``` directory, and inside it, create the ```ImageViewer.tsx``` file.
+- Move the code to display the image in this file along with the ```image``` styles.
+
+```tsx
+import { ImageSourcePropType, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
+
+type Props = {
+  imgSource: ImageSourcePropType;
+};
+
+export default function ImageViewer({ imgSource }: Props) {
+  return <Image source={imgSource} style={styles.image} />;
+}
+
+const styles = StyleSheet.create({
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
+});
+
+```
 
 
-##
+Import ```ImageViewer``` and use it in the ```app/(tabs)/index.tsx```:
+
+```tsx
+import { StyleSheet, View } from 'react-native';
+
+import ImageViewer from '@/components/ImageViewer'; 
+
+const PlaceholderImage = require('@/assets/images/background-image.png');
+
+export default function Index() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <ImageViewer imgSource={PlaceholderImage} />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    flex: 1,
+  },
+});
+
+```
+
+
+The ```@``` symbol is a custom path alias for importing custom components and other modules instead of relative paths. 
+Expo CLI automatically configures it in ```tsconfig.json```.
+
+
+
+## Create buttons using Pressable
 
 
 ##
