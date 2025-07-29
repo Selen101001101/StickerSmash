@@ -642,6 +642,7 @@ export default function Index() {
 
 - The ```launchImageLibraryAsync()``` receives an object to specify different options. This object is the ```ImagePickerOptions``` object, which we are passing when invoking the method.
 - When ```allowsEditing``` is set to ```true```, the user can crop the image during the selection process on Android and iOS.
+ 
 
 
 ## Update the button component
