@@ -16,7 +16,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+In the output, you"ll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
@@ -27,7 +27,7 @@ You can start developing by editing the files inside the **app** directory. This
 
 ## Get a fresh project
 
-When you're ready, run:
+When you"re ready, run:
 
 ```bash
 npm run reset-project
@@ -40,7 +40,7 @@ This command will move the starter code to the **app-example** directory and cre
 To learn more about developing your project with Expo, look at the following resources:
 
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you"ll create a project that runs on Android, iOS, and the web.
 
 ## Join the community
 
@@ -63,7 +63,7 @@ npx create-expo-app@latest StickerSmash
 
 ## Run reset-project script
 
-[reset-project] script resets the app directory structure in a project and copies the previous boilerplate files from the project's root directory to another sub-directory called app-example. We can delete it since it is not part of our main app's structure.
+[reset-project] script resets the app directory structure in a project and copies the previous boilerplate files from the project"s root directory to another sub-directory called app-example. We can delete it since it is not part of our main app"s structure.
 
 ```bash
 npm run reset-project
@@ -76,14 +76,14 @@ npx expo start
 ```
 After running the app:
 
-- The development server will start, and you'll see a QR code inside the terminal window.
+- The development server will start, and you"ll see a QR code inside the terminal window.
 - Scan that QR code to open the app on the device. On Android, use the Expo Go > Scan QR code option. On iOS, use the default camera app.
 - To run the web app, press w in the terminal. It will open the web app in the default web browser.
 
 ## Edit the index screen
 
 ```tsx
-import { Text, View,  StyleSheet } from 'react-native';
+import { Text, View,  StyleSheet } from "react-native";
 
 export default function Index() {
   return (
@@ -96,12 +96,12 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#25292e",
+    alignItems: "center",
+    justifyContent: "center",
   },
   text: {
-    color: '#fff',
+    color: "#fff",
   },
 });
 
@@ -124,10 +124,10 @@ This list is enough to start. For a complete list of features, see [Introduction
 
 ## Add a new screen to the stack
 
-Let's create a new file named ```about.tsx``` inside the app directory. It displays the screen name when the user navigates to the ```/about``` route.
+Let"s create a new file named ```about.tsx``` inside the app directory. It displays the screen name when the user navigates to the ```/about``` route.
 
 ```tsx
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from "react-native";
 
 export default function AboutScreen() {
   return (
@@ -140,12 +140,12 @@ export default function AboutScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#25292e",
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
-    color: '#fff',
+    color: "#fff",
   },
 });
 
@@ -158,15 +158,15 @@ A ```stack navigator``` is the foundation for navigating between different scree
 Expo Router provides a Stack component to create a navigation stack to add new routes.
 
 ## Navigate between screens
-We'll use Expo Router's Link component to navigate from the ```/index``` route to the ```/about``` route. It is a React component that renders a ```<Text>``` with a given href prop.
+We"ll use Expo Router"s Link component to navigate from the ```/index``` route to the ```/about``` route. It is a React component that renders a ```<Text>``` with a given href prop.
 
 Import the Link component from expo-router inside ```index.tsx```.
 Add a Link component after ```<Text>``` component and pass href prop with the /about route.
 Add a style of fontSize, textDecorationLine, and color to Link component. It takes the same props as the ```<Text>``` component.
 
 ```tsx
-import { Text, View, StyleSheet } from 'react-native';
- import { Link } from 'expo-router'; 
+import { Text, View, StyleSheet } from "react-native";
+ import { Link } from "expo-router"; 
 
 export default function Index() {
   return (
@@ -182,17 +182,17 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#25292e",
+    alignItems: "center",
+    justifyContent: "center",
   },
   text: {
-    color: '#fff',
+    color: "#fff",
   },
   button: {
     fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
+    textDecorationLine: "underline",
+    color: "#fff",
   },
 });
 
@@ -218,39 +218,39 @@ Add a Link component to navigate to the / route, which is our fallback route.
 
 ### app/(tabs)/_layout.tsx
 ```tsx
-import { Tabs } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-         tabBarActiveTintColor: '#ffd33d',
+         tabBarActiveTintColor: "#ffd33d",
          headerStyle: {
-            backgroundColor: '#25292e',
+            backgroundColor: "#25292e",
          },
          headerShadowVisible: false,
-         headerTintColor: '#fff',
+         headerTintColor: "#fff",
          tabBarStyle: {
-            backgroundColor: '#25292e',
+            backgroundColor: "#25292e",
          },
       }}
       >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
+            <Ionicons name={focused ? "home-sharp" : "home-outline"} color={color} size={24} />
           ),
         }}
       />
       <Tabs.Screen
         name="about"
         options={{
-          title: 'About',
+          title: "About",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24}/>
+            <Ionicons name={focused ? "information-circle" : "information-circle-outline"} color={color} size={24}/>
           ),
         }}
       />
@@ -274,11 +274,11 @@ The first button contains multiple components. The parent element provides a yel
 
 ![Parent Child Components](/pictures_files/parents_children_components.png)
 
-Now that we've broken down the UI into smaller chunks, we're ready to start coding.
+Now that we"ve broken down the UI into smaller chunks, we"re ready to start coding.
 
 ## Display the image
 
-We'll use ```expo-image``` library to display the image in the app. It provides a cross-platform ```<Image>``` component to load and render an image.
+We"ll use ```expo-image``` library to display the image in the app. It provides a cross-platform ```<Image>``` component to load and render an image.
 To install those libraries, stop the dev server before:
 
 ```bash
@@ -292,11 +292,11 @@ To use the Image component in ```app/(tabs)/index.tsx``` file:
 - Create a ```PlaceholderImage``` variable to use ```assets/images/background-image.png``` file as the source prop on the Image component.
 
 ```tsx
-import { View, StyleSheet } from 'react-native';
- import { Image } from 'expo-image'; 
+import { View, StyleSheet } from "react-native";
+ import { Image } from "expo-image"; 
 
 
-const PlaceholderImage = require('@/assets/images/background-image.png');
+const PlaceholderImage = require("@/assets/images/background-image.png");
 
 
 export default function Index() {
@@ -312,8 +312,8 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
+    backgroundColor: "#25292e",
+    alignItems: "center",
   },
   imageContainer: {
     flex: 1,
@@ -334,8 +334,8 @@ const styles = StyleSheet.create({
 - Move the code to display the image in this file along with the ```image``` styles.
 
 ```tsx
-import { ImageSourcePropType, StyleSheet } from 'react-native';
-import { Image } from 'expo-image';
+import { ImageSourcePropType, StyleSheet } from "react-native";
+import { Image } from "expo-image";
 
 type Props = {
   imgSource: ImageSourcePropType;
@@ -359,11 +359,11 @@ const styles = StyleSheet.create({
 Import ```ImageViewer``` and use it in the ```app/(tabs)/index.tsx```:
 
 ```tsx
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from "react-native";
 
-import ImageViewer from '@/components/ImageViewer'; 
+import ImageViewer from "@/components/ImageViewer"; 
 
-const PlaceholderImage = require('@/assets/images/background-image.png');
+const PlaceholderImage = require("@/assets/images/background-image.png");
 
 export default function Index() {
   return (
@@ -378,8 +378,8 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
+    backgroundColor: "#25292e",
+    alignItems: "center",
   },
   imageContainer: {
     flex: 1,
@@ -398,7 +398,7 @@ Expo CLI automatically configures it in ```tsconfig.json```.
 
 ### components/Button.tsx
 ```tsx
-import { StyleSheet, View, Pressable, Text } from 'react-native';
+import { StyleSheet, View, Pressable, Text } from "react-native";
 
 type Props = {
   label: string;
@@ -407,7 +407,7 @@ type Props = {
 export default function Button({ label }: Props) {
   return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+      <Pressable style={styles.button} onPress={() => alert("You pressed a button.")}>
         <Text style={styles.buttonLabel}>{label}</Text>
       </Pressable>
     </View>
@@ -419,20 +419,20 @@ const styles = StyleSheet.create({
     width: 320,
     height: 68,
     marginHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 3,
   },
   button: {
     borderRadius: 10,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   buttonLabel: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
 });
@@ -442,10 +442,10 @@ const styles = StyleSheet.create({
 ### app/(tabs)/index.tsx
 
 ```tsx
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
 
-import Button from '@/components/Button'; 
-import ImageViewer from '@/components/ImageViewer';
+import Button from "@/components/Button"; 
+import ImageViewer from "@/components/ImageViewer";
 
 const PlaceholderImage = require("@/assets/images/background-image.png");
 
@@ -466,8 +466,8 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
+    backgroundColor: "#25292e",
+    alignItems: "center",
   },
   imageContainer: {
     flex: 1,
@@ -475,7 +475,7 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     flex: 1 / 3,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 
@@ -485,27 +485,27 @@ const styles = StyleSheet.create({
 
 ### components/Button.tsx
 ```tsx
-import { StyleSheet, View, Pressable, Text } from 'react-native';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { StyleSheet, View, Pressable, Text } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 type Props = {
   label: string;
-  theme?: 'primary';
+  theme?: "primary";
 };
 
 export default function Button({ label, theme }: Props) {
-  if (theme === 'primary') {
+  if (theme === "primary") {
     return (
       <View
         style={[
           styles.buttonContainer,
-          { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
+          { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 },
         ]}>
         <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
-          onPress={() => alert('You pressed a button.')}>
+          style={[styles.button, { backgroundColor: "#fff" }]}
+          onPress={() => alert("You pressed a button.")}>
           <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon} />
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
         </Pressable>
       </View>
     );
@@ -513,7 +513,7 @@ export default function Button({ label, theme }: Props) {
 
   return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+      <Pressable style={styles.button} onPress={() => alert("You pressed a button.")}>
         <Text style={styles.buttonLabel}>{label}</Text>
       </Pressable>
     </View>
@@ -525,42 +525,42 @@ const styles = StyleSheet.create({
     width: 320,
     height: 68,
     marginHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 3,
   },
   button: {
     borderRadius: 10,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   buttonIcon: {
     paddingRight: 8,
   },
   buttonLabel: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
 });
 
 ```
 - The primary theme button uses inline styles, which overrides the styles defined in StyleSheet.create() with an object directly passed in the style prop.
-- The ```Pressable``` component in the primary theme uses a ```backgroundColor``` property with a value ```#fff``` to set the button's background to white. If we add this property to the ```styles.button```, the background color value will be set for both the primary theme and the unstyled one.
+- The ```Pressable``` component in the primary theme uses a ```backgroundColor``` property with a value ```#fff``` to set the button"s background to white. If we add this property to the ```styles.button```, the background color value will be set for both the primary theme and the unstyled one.
 - Inline styles use JavaScript and override the default styles for a specific value.
 
 After that, modify the ```app/(tabs)/index.tsx``` file to use the theme="primary" prop on the first button.
 
 ### app/(tabs)/index.tsx
 ```tsc
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
 
-import Button from '@/components/Button';
-import ImageViewer from '@/components/ImageViewer';
+import Button from "@/components/Button";
+import ImageViewer from "@/components/ImageViewer";
 
-const PlaceholderImage = require('@/assets/images/background-image.png');
+const PlaceholderImage = require("@/assets/images/background-image.png");
 
 export default function Index() {
   return (
@@ -579,15 +579,15 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
+    backgroundColor: "#25292e",
+    alignItems: "center",
   },
   imageContainer: {
     flex: 1,
   },
   footerContainer: {
     flex: 1 / 3,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 
@@ -596,9 +596,9 @@ const styles = StyleSheet.create({
 # Chap 4 . Use an Image Picker
 
 React Native provides built-in components as standard building blocks, such as ```<View>```, ```<Text>```, and ```<Pressable>```. 
-We are building a feature to select an image from the device's media gallery. This isn't possible with the core components and we'll need a library to add this feature in our app.
-We'll use ```expo-image-picker```, a library from Expo SDK.
-This library provides access to the system's UI to select images and videos from the phone's library.
+We are building a feature to select an image from the device"s media gallery. This isn"t possible with the core components and we"ll need a library to add this feature in our app.
+We"ll use ```expo-image-picker```, a library from Expo SDK.
+This library provides access to the system"s UI to select images and videos from the phone"s library.
 
 ## Install expo-image-picker
 
@@ -609,10 +609,42 @@ npx expo install expo-image-picker
 Any time we install a new library in a project, we should stop the development server (```Ctrl + C```) in the terminal and run the installation command. After the installation completes, we can start the development server again by running npx expo start from the same terminal window.
 
 
-## Pick an image from the device's media library
+## Pick an image from the device"s media library
+
+```expo-image-picker``` provides ```launchImageLibraryAsync()``` method to display the system UI by choosing an image or a video from the device"s media library. 
+We"ll use the primary themed button created in the previous chapter to select an image from the device"s media library and create a function to launch the device"s image library to implement this functionality.
+
+In ```app/(tabs)/index.tsx```, import ```expo-image-picker```library and create a ```pickImageAsync()``` function inside the Index component:
+
+```tsx
+// ...rest of the import statements are the same
+ import * as ImagePicker from "expo-image-picker";
+
+export default function Index() {
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      console.log(result);
+    } else {
+      alert("You did not select any image.");
+    }
+  };
+
+  // ...rest of the code is the same
+}
+
+```
+
+- The ```launchImageLibraryAsync()``` receives an object to specify different options. This object is the ```ImagePickerOptions``` object, which we are passing when invoking the method.
+- When ```allowsEditing``` is set to ```true```, the user can crop the image during the selection process on Android and iOS.
 
 
-##
+## Update the button component
 
 
 ##
