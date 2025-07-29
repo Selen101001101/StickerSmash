@@ -202,4 +202,8 @@ const styles = StyleSheet.create({
 Add options prop from the Stack.Screen to display a custom screen title for this route.
 Add a Link component to navigate to the / route, which is our fallback route.
 
-##
+## Add a bottom tab navigator
+
+- Inside the app directory, add a ```(tabs)``` subdirectory. This special directory is used to group routes together and display them in a bottom tab bar.
+- Create a ```(tabs)/_layout.tsx``` file inside the directory. It will be used to define the tab layout, which is separate from Root layout.
+- Move the existing ```index.tsx``` and ```about.tsx``` files inside the ```(tabs)``` directory.
