@@ -1,40 +1,11 @@
-# Welcome to your Expo app 👋
+# Welcome to this Expo project 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). 
+It's also the tutorial of the [Expo documentation](https://docs.expo.dev/tutorial/).
 
-## Get started
+In fact, it's a simple way for me to pratice and understand what is ```react-natice``` and ```Expo``` and how to use it.
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you"ll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you"re ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
+I think it's a little cringe to get all those ressources and show it here, just like that, so ...
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
@@ -51,6 +22,14 @@ Join our community of developers creating universal apps.
 
 
 
+
+
+All rigth, now, we'll brgin the work:
+
+
+
+
+
 # TUTORIAL : 
 
 # Chap 1 . CREATE AN APP WITH EXPO AND REACT NATIVE
@@ -63,7 +42,7 @@ npx create-expo-app@latest StickerSmash
 
 ## Run reset-project script
 
-[reset-project] script resets the app directory structure in a project and copies the previous boilerplate files from the project"s root directory to another sub-directory called app-example. We can delete it since it is not part of our main app"s structure.
+```reset-project``` script resets the app directory structure in a project and copies the previous boilerplate files from the project"s root directory to another sub-directory called app-example. We can delete it since it is not part of our main app"s structure.
 
 ```bash
 npm run reset-project
@@ -1441,7 +1420,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 export default function Index() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      {/* ...rest of the code remains */}
+      {/* ...rest of the code is the */}
     </GestureHandlerRootView>
   )
 }
@@ -1499,7 +1478,7 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
   const scaleImage = useSharedValue(imageSize);
 
   return (
-    // ...rest of the code remains same
+    // ...rest of the code is the same
   )
 }
 
@@ -1587,13 +1566,126 @@ For a complete reference of the tap gesture API, see the [React Native Gesture H
 
 ## Add a pan gesture
 
-##
+To recognize a dragging gesture on the sticker and to track its movement, we'll use a pan gesture. In the ```components/EmojiSticker.tsx```:
 
-##
+- Create two new shared values: ```translateX``` and ```translateY```.
+- Replace the ```View``` with the ```Animated.View``` component:
 
-##
+```tsx
+export default function EmojiSticker({ imageSize, stickerSource }: Props) {
+  const scaleImage = useSharedValue(imageSize);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+  // ...rest of the code is the same
+
+  return (
+    <Animated.View style={{ top: -350 }}>
+      <GestureDetector gesture={doubleTap}>
+        {/* ...rest of the code is the same */}
+      </GestureDetector>
+    </Animated.View>
+  );
+}
+
+```
+- The translation values defined will move the sticker around the screen. Since the sticker moves along both axes, we need to track the X and Y values.
+- In the ```useSharedValue()``` hooks, we have set both translation variables to have an initial position of ```0```. This is the sticker's initial position and a starting point. This value sets the sticker's initial position when the gesture starts.
 
 
+In the previous step, we triggered the ```onStart()``` callback for the tap gesture chained to the ```Gesture.Tap()``` method. For the pan gesture, specify an ```onChange()``` callback, which runs when the gesture is active and moving.
 
+- Create a ```drag``` object to handle the pan gesture. The ```onChange()``` callback accepts event as a parameter. ```changeX``` and ```changeY``` properties hold the change in position since the last event. and update the values stored in ```translateX``` and ```translateY```.
+- Define the ```containerStyle``` object using the ```useAnimatedStyle()``` hook. It will return an array of transforms. For the ```Animated.View``` component, we need to set the ```transform``` property to the ```translateX``` and ```translateY``` values. This will change the sticker's position when the gesture is active.
 
+```tsx
+const drag = Gesture.Pan().onChange(event => {
+  translateX.value += event.changeX;
+  translateY.value += event.changeY;
+});
 
+const containerStyle = useAnimatedStyle(() => {
+  return {
+    transform: [
+      {
+        translateX: translateX.value,
+      },
+      {
+        translateY: translateY.value,
+      },
+    ],
+  };
+});
+
+```
+
+After that, inside the JSX code:
+
+- Update the ```EmojiSticker``` component so that the ```GestureDetector``` component becomes the top-level component.
+- Add the ```containerStyle``` on the ```Animated.View``` component to apply the transform styles.
+
+```tsx
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { ImageSourcePropType } from 'react-native';
+
+type Props = {
+  imageSize: number;
+  stickerSource: ImageSourcePropType;
+};
+
+export default function EmojiSticker({ imageSize, stickerSource }: Props) {
+  const scaleImage = useSharedValue(imageSize);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+
+  const doubleTap = Gesture.Tap()
+    .numberOfTaps(2)
+    .onStart(() => {
+      if (scaleImage.value !== imageSize * 2) {
+        scaleImage.value = scaleImage.value * 2;
+      } else {
+        scaleImage.value = Math.round(scaleImage.value / 2);
+      }
+    });
+
+  const imageStyle = useAnimatedStyle(() => {
+    return {
+      width: withSpring(scaleImage.value),
+      height: withSpring(scaleImage.value),
+    };
+  });
+
+  const drag = Gesture.Pan().onChange(event => {
+    translateX.value += event.changeX;
+    translateY.value += event.changeY;
+  });
+
+  const containerStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: translateX.value,
+        },
+        {
+          translateY: translateY.value,
+        },
+      ],
+    };
+  });
+
+  return (
+    <GestureDetector gesture={drag}>
+      <Animated.View style={[containerStyle, { top: -350 }]}>
+        <GestureDetector gesture={doubleTap}>
+          <Animated.Image
+            source={stickerSource}
+            resizeMode="contain"
+            style={[imageStyle, { width: imageSize, height: imageSize }]}
+          />
+        </GestureDetector>
+      </Animated.View>
+    </GestureDetector>
+  );
+}
+
+```
