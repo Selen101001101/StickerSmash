@@ -1414,7 +1414,9 @@ const styles = StyleSheet.create({
 
 
 
-##
+## Display the selected emoji
+
+
 
 ##
 
