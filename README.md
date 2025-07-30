@@ -1026,10 +1026,217 @@ const styles = StyleSheet.create({
 
 ```
 
+And also a new ```IconButton.tsx```
+
+```tsx
+import { Pressable, StyleSheet, Text } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+type Props = {
+  icon: keyof typeof MaterialIcons.glyphMap;
+  label: string;
+  onPress: () => void;
+};
+
+export default function IconButton({ icon, label, onPress }: Props) {
+  return (
+    <Pressable style={styles.iconButton} onPress={onPress}>
+      <MaterialIcons name={icon} size={24} color="#fff" />
+      <Text style={styles.iconButtonLabel}>{label}</Text>
+    </Pressable>
+  );
+}
+
+const styles = StyleSheet.create({
+  iconButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconButtonLabel: {
+    color: '#fff',
+    marginTop: 12,
+  },
+});
+
+```
+
+Next, add the new components, and some functions in ```index.tsx```:
+
+```tsx
+import { View, StyleSheet } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { useState } from 'react';
+
+import Button from '@/components/Button';
+import ImageViewer from '@/components/ImageViewer';
+
+import IconButton from '@/components/IconButton';
+import CircleButton from '@/components/CircleButton';
 
 
+const PlaceholderImage = require('@/assets/images/background-image.png');
 
-##
+export default function Index() {
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+  const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
+
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+      setShowAppOptions(true);
+    } else {
+      alert('You did not select any image.');
+    }
+  };
+
+  const onReset = () => {
+    setShowAppOptions(false);
+  };
+
+  const onAddSticker = () => {
+    // we will implement this later
+  };
+
+  const onSaveImageAsync = async () => {
+    // we will implement this later
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <ImageViewer imgSource={PlaceholderImage} selectedImage={selectedImage} />
+      </View>
+      {showAppOptions ? (
+        <View style={styles.optionsContainer}>
+          <View style={styles.optionsRow}>
+            <IconButton icon="refresh" label="Reset" onPress={onReset} />
+            <CircleButton onPress={onAddSticker} />
+            <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
+          </View>
+        </View>
+      ) : (
+        <View style={styles.footerContainer}>
+          <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
+          <Button label="Use this photo" onPress={() => setShowAppOptions(true)} />
+        </View>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    flex: 1,
+  },
+  footerContainer: {
+    flex: 1 / 3,
+    alignItems: 'center',
+  },
+  optionsContainer: {
+    position: 'absolute',
+    bottom: 80,
+  },
+  optionsRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+});
+
+```
+
+
+## Create an emoji picker modal
+
+The modal'll allow the user to choose an emoji from a list of available emoji. 
+First, create an ```EmojiPicker.tsx``` file inside the ```components``` directory. 
+This component' ll accept three props:
+
+- ```isVisible```: a boolean value to determine the state of the modal's visibility.
+- ```onClose```: a function to close the modal.
+- ```children```: used later to display a list of emoji.
+
+The EmojiPicker:
+
+```tsx
+import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+import { PropsWithChildren } from 'react';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+type Props = PropsWithChildren<{
+  isVisible: boolean;
+  onClose: () => void;
+}>;
+
+export default function EmojiPicker({ isVisible, children, onClose }: Props) {
+  return (
+    <View>
+    <Modal animationType="slide" transparent={true} visible={isVisible}>
+      <View style={styles.modalContent}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Choose a sticker</Text>
+          <Pressable onPress={onClose}>
+            <MaterialIcons name="close" color="#fff" size={22} />
+          </Pressable>
+        </View>
+        {children}
+      </View>
+    </Modal>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  modalContent: {
+    height: '25%',
+    width: '100%',
+    backgroundColor: '#25292e',
+    borderTopRightRadius: 18,
+    borderTopLeftRadius: 18,
+    position: 'absolute',
+    bottom: 0,
+  },
+  titleContainer: {
+    height: '16%',
+    backgroundColor: '#464C55',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: '#fff',
+    fontSize: 16,
+  },
+});
+
+```
+
+- The ```Modal``` component displays a title and a close button.
+- Its ```visible``` prop takes the value of ```isVisible``` and controls whether the modal is open or closed.
+- Its ```transparent``` prop is a boolean value, which determines whether the modal fills the entire view.
+- Its ```animationType``` prop determines how it enters and leaves the screen. In this case, it is sliding from the bottom of the screen.
+- Lastly, the ```EmojiPicker``` invokes the onClose prop when the user presses the close ```Pressable```.
+
+After that, modify the ```app/(tabs)/index.tsx```:
+
+- Import the ```EmojiPicker``` component.
+- Create an ```isModalVisible``` state variable with the ```useState``` hook. Its default value is ```false```, which hides the modal until the user presses the button to open it.
+- Replace the comment in the ```onAddSticker()``` function to update the ```isModalVisible``` variable to ```true``` when the user presses the button. This will open the emoji picker.
+- Create the ```onModalClose()``` function to update the ```isModalVisible``` state variable.
+- Place the ```EmojiPicker``` component at the bottom of the ```Index``` component.
 
 ##
 
