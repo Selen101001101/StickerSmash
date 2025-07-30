@@ -1418,6 +1418,44 @@ const styles = StyleSheet.create({
 
 
 
+# Chap 6 . Add gestures
+
+Gestures are a great way to provide an intuitive user experience in an app. 
+The [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/) library provides built-in native components that can handle gestures. 
+It recognizes pan, tap, rotation, and other gestures using the platform's native touch handling system. 
+We'll add two different gestures using this library:
+
+Double tap to scale the size of the emoji sticker and reduce the scale when double tapped again.
+Pan to move the emoji sticker around the screen so that the user can place the sticker anywhere on the image.
+
+We'll also use the ```Reanimated``` library to animate between gesture states.
+
+## Add GestureHandlerRootView
+
+To get gesture interactions to work in the app, we'll render ```GestureHandlerRootView``` from react-native-gesture-handler at the top of Index component. Replace the root level ```View``` component in the ```app/(tabs)/index.tsx``` with ```GestureHandlerRootView```:
+
+```tsx
+// ... rest of the import statements remain same
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+export default function Index() {
+  return (
+    <GestureHandlerRootView style={styles.container}>
+      {/* ...rest of the code remains */}
+    </GestureHandlerRootView>
+  )
+}
+
+```
+
+##
+
+##
+
+##
+
+##
+
 ##
 
 ##
