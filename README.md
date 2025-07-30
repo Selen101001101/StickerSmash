@@ -1448,9 +1448,39 @@ export default function Index() {
 
 ```
 
-##
+## Use animated components
 
-##
+An ```Animated``` component looks at the style prop of the component and determines which values to animate and apply updates to create an animation. Reanimated exports animated components such as ```Animated.View```, ```Animated.Text```, or ```Animated.ScrollView```. 
+We will apply animations to the ```Animated.Image``` component to make a double tap gesture work.
+
+- Open the ```EmojiSticker.tsx``` file in the components directory. Inside it, import ```Animated``` from the ```react-native-reanimated``` library to use animated components.
+- Replace the Image component with ```Animated.Image```.
+
+```tsx
+import { ImageSourcePropType, View } from 'react-native';
+import Animated from 'react-native-reanimated';
+
+type Props = {
+  imageSize: number;
+  stickerSource: ImageSourcePropType;
+};
+
+export default function EmojiSticker({ imageSize, stickerSource }: Props) {
+  return (
+    <View style={{ top: -350 }}>
+      <Animated.Image
+        source={stickerSource}
+        resizeMode="contain"
+        style={{ width: imageSize, height: imageSize }}
+      />
+    </View>
+  );
+}
+
+```
+For a complete reference of the animated component API, see [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/core/createAnimatedComponent) documentation.
+
+## Add a tap gesture
 
 ##
 
