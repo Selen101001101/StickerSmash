@@ -1482,7 +1482,110 @@ For a complete reference of the animated component API, see [React Native Reanim
 
 ## Add a tap gesture
 
-##
+React Native Gesture Handler allows us to add behavior when it detects touch input, like a double tap event.
+
+In the ```EmojiSticker.tsx``` file:
+
+- Import ```Gesture``` and ```GestureDetector``` from ```react-native-gesture-handler```.
+- To recognize the tap on the sticker, import ```useAnimatedStyle```, ```useSharedValue```, and ```withSpring``` from ```react-native-reanimated``` to animate the style of the ```Animated.Image```.
+- Inside the ```EmojiSticker``` component, create a reference called ```scaleImage``` using the ```useSharedValue()``` hook. It will take the value of ```imageSize``` as its initial value.
+
+```tsx
+// ...rest of the import statements remain same
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+
+export default function EmojiSticker({ imageSize, stickerSource }: Props) {
+  const scaleImage = useSharedValue(imageSize);
+
+  return (
+    // ...rest of the code remains same
+  )
+}
+
+```
+
+Creating a shared value using the ```useSharedValue()``` hook has many advantages. It helps to mutate data and runs animations based on the current value. We can access and modify the shared value using the ```.value``` property. We'll create a ```doubleTap``` object to scale the initial value and use ```Gesture.Tap()``` to animate the transition while scaling the sticker image. To determine the number of taps required, we'll add ```numberOfTaps()```.
+
+Create the following object in the ```EmojiSticker``` component:
+```tsx
+const doubleTap = Gesture.Tap()
+  .numberOfTaps(2)
+  .onStart(() => {
+    if (scaleImage.value !== imageSize * 2) {
+      scaleImage.value = scaleImage.value * 2;
+    } else {
+      scaleImage.value = Math.round(scaleImage.value / 2);
+    }
+  });
+
+```
+
+To animate the transition, let's use a spring-based animation. This will make it feel alive because it's based on the real-world physics of a spring. We will use the ```withSpring()``` function provided by ```react-native-reanimated```.
+
+On the sticker image, we'll use the ```useAnimatedStyle()``` hook to create a style object. This will help us to update styles using shared values when the animation happens. We'll also scale the size of the image by manipulating the ```width``` and ```height``` properties. The initial values of these properties are set to ```imageSize```.
+
+Create an ```imageStyle``` variable and add it to the ```EmojiSticker``` component:
+```tsx
+const imageStyle = useAnimatedStyle(() => {
+  return {
+    width: withSpring(scaleImage.value),
+    height: withSpring(scaleImage.value),
+  };
+});
+
+```
+
+After that, wrap the ```Animated.Image``` component with the ```GestureDetector``` and modify the style prop on the ```Animated.Image``` to pass the ```imageStyle```: 
+
+```tsx
+import { ImageSourcePropType, View } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+
+type Props = {
+  imageSize: number;
+  stickerSource: ImageSourcePropType;
+};
+
+export default function EmojiSticker({ imageSize, stickerSource }: Props) {
+  const scaleImage = useSharedValue(imageSize);
+
+  const doubleTap = Gesture.Tap()
+    .numberOfTaps(2)
+    .onStart(() => {
+      if (scaleImage.value !== imageSize * 2) {
+        scaleImage.value = scaleImage.value * 2;
+      } else {
+        scaleImage.value = Math.round(scaleImage.value / 2);
+      }
+    });
+
+  const imageStyle = useAnimatedStyle(() => {
+    return {
+      width: withSpring(scaleImage.value),
+      height: withSpring(scaleImage.value),
+    };
+  });
+
+  return (
+    <View style={{ top: -350 }}>
+       <GestureDetector gesture={doubleTap}>
+        <Animated.Image
+          source={stickerSource}
+          resizeMode="contain"
+          style={[imageStyle, { width: imageSize, height: imageSize }]}
+        />
+      </GestureDetector>
+    </View>
+  );
+}
+
+```
+
+For a complete reference of the tap gesture API, see the [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/tap-gesture) documentation.
+
+## Add a pan gesture
 
 ##
 
